@@ -7,8 +7,9 @@ import Header from "../../components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Akgüler Reklam",
-  description: "Akgüler Reklam",
+  title: "Akgüler Reklam | Yaratıcı Tasarım & Reklam Çözümleri",
+  description:
+    "Yenilikçi reklam panoları, dijital tasarımlar ve marka kimliği çalışmaları sunan profesyonel ajans.",
 };
 
 export default function RootLayout({
