@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { FC, useState, useRef } from "react";
 import { motion } from "framer-motion";
-
+import Link from "next/link";
 interface ProjectCardProps {
+  slug: string;
   title: string;
   category: string;
   imageUrl: string;
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: FC<ProjectCardProps> = ({
+  slug,
   title,
   category,
   imageUrl,
@@ -56,43 +58,48 @@ const ProjectCard: FC<ProjectCardProps> = ({
   };
 
   return (
-    <div
-      className="rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <Link
+      href={`/projeler/${slug}`}
+      className="block rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
     >
-      <motion.div
-        className="relative w-full aspect-[4/3] overflow-hidden bg-gray-200"
-        initial={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+      <div
+        className="cursor-pointer"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <Image
-          src={imageUrl}
-          alt={`Proje görseli: ${title}`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-opacity duration-300"
-          style={{ opacity: isHovered ? 0 : 1 }}
-        />
-        <video
-          ref={videoRef}
-          src={videoUrl}
-          loop
-          muted
-          playsInline
-          onCanPlay={handleCanPlay}
-          className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300"
-          style={{ opacity: isHovered ? 1 : 0 }}
-          preload="metadata"
-        />
-      </motion.div>
+        <motion.div
+          className="relative w-full aspect-[4/3] overflow-hidden bg-gray-200"
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          <Image
+            src={imageUrl}
+            alt={`Proje görseli: ${title}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-opacity duration-300"
+            style={{ opacity: isHovered ? 0 : 1 }}
+          />
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            loop
+            muted
+            playsInline
+            onCanPlay={handleCanPlay}
+            className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300"
+            style={{ opacity: isHovered ? 1 : 0 }}
+            preload="metadata"
+          />
+        </motion.div>
 
-      <div className="p-4 bg-white">
-        <h3 className="text-lg font-bold">{title}</h3>
-        <p className="text-sm text-gray-500">{category}</p>
+        <div className="p-4 bg-white">
+          <h3 className="text-lg font-bold">{title}</h3>
+          <p className="text-sm text-gray-500">{category}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
