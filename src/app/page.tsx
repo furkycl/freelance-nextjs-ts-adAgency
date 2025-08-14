@@ -2,33 +2,7 @@
 import Button from "../../components/Button";
 import ProjectCard from "../../components/ProjectCard";
 import Image from "next/image";
-
-const featuredProjects = [
-  {
-    slug: "marka-kimligi-projesi",
-    title: "Marka Kimliği Projesi",
-    category: "Tasarım & Strateji",
-    imageUrl:
-      "https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600",
-    videoUrl: "/videos/project-branding.mp4",
-  },
-  {
-    slug: "billboard-kampanyasi",
-    title: "Billboard Kampanyası",
-    category: "Açıkhava Reklamcılığı",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600",
-    videoUrl: "/videos/project-branding.mp4",
-  },
-  {
-    slug: "dijital-urun-lansmani",
-    title: "Dijital Ürün Lansmanı",
-    category: "Web & Mobil Tasarım",
-    imageUrl:
-      "https://images.unsplash.com/photo-1607703703520-bb638e84caf2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600",
-    videoUrl: "/videos/project-branding.mp4",
-  },
-];
+import { projectsData } from "../../data/projects";
 
 export default function HomePage() {
   return (
@@ -58,7 +32,7 @@ export default function HomePage() {
             Öne Çıkan Çalışmalarımız
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+            {projectsData.map((project, index) => (
               <ProjectCard
                 key={index}
                 slug={project.slug}
