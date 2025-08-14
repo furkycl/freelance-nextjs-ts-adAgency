@@ -44,7 +44,7 @@ const Header: FC = () => {
             Projeler
           </Link>
           <Link
-            href="/hakkimda"
+            href="/hakkimizda"
             className="hover:text-gray-500 transition-colors"
           >
             Hakkımızda
