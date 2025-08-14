@@ -1,3 +1,13 @@
+export interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  imageUrl: string;
+  videoUrl: string;
+  description: string;
+  gallery: string[];
+}
+
 export const projectsData: Project[] = [
   {
     slug: "marka-kimligi-projesi",
