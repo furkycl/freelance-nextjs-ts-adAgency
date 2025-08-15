@@ -1,8 +1,6 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { ReactNode, FC } from "react";
-
 interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
