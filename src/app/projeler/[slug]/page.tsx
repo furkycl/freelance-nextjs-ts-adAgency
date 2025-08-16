@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 // Page props fully compatible with Next.js App Router
 interface ProjectPageProps {
-  params: Readonly<{ slug: string }>;
+  params: { slug: string | string[] };
   searchParams?: Record<string, string | string[] | undefined>;
 }
 
@@ -25,8 +25,10 @@ export async function generateStaticParams(): Promise<
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
   const project: Project | null = await client.fetch(singleProjectQuery, {
-    slug: params.slug,
+    slug,
   });
 
   if (!project) {
@@ -44,8 +46,10 @@ export async function generateMetadata({
 
 // Main page component
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
   const project: Project | null = await client.fetch(singleProjectQuery, {
-    slug: params.slug,
+    slug,
   });
 
   if (!project) {
