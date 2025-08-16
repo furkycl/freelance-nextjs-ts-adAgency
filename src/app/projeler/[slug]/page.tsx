@@ -3,12 +3,12 @@ import { singleProjectQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
 import { Project } from "../../../../types";
-import { Metadata, ResolvingMetadata } from "next";
+// import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { slug: string };
 };
-
+/*
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
@@ -34,7 +34,7 @@ export async function generateMetadata(
     },
   };
 }
-
+*/
 export default async function ProjectDetailPage({ params }: Props) {
   const project: Project = await client.fetch(singleProjectQuery, {
     slug: params.slug,
