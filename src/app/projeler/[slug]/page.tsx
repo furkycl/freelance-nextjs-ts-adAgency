@@ -2,42 +2,35 @@ import { client } from "@/sanity/lib/client";
 import { singleProjectQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
-import { Project } from "../../../../types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Project } from "@/types";
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
   const slugs: { slug: string }[] = await client.fetch(
-    `*[_type == "project"]{ "slug": slug.current }`
+    `*[_type == "project" && defined(slug.current)][].slug.current`
   );
-
-  return slugs.map((item) => ({
-    slug: item.slug,
+  return slugs.map((slug) => ({
+    slug,
   }));
 }
-
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const slug = params.slug;
-
-  const project: Project = await client.fetch(singleProjectQuery, { slug });
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const project: Project = await client.fetch(singleProjectQuery, {
+    slug: params.slug,
+  });
 
   if (!project) {
-    return {
-      title: "Proje Bulunamadı",
-    };
+    return { title: "Proje Bulunamadı" };
   }
-
-  const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `${project.title} | Şirket Adı`,
     description: project.description.substring(0, 155),
     openGraph: {
-      title: `${project.title} | Şirket Adı`,
-      description: project.description.substring(0, 155),
-      images: [project.imageUrl, ...previousImages],
+      images: [project.imageUrl],
     },
   };
 }
