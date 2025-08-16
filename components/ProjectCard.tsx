@@ -21,18 +21,23 @@ const ProjectCard: FC<ProjectCardProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playVideo = (videoElement: HTMLVideoElement | null) => {
+    if (!videoElement) return;
+
+    const playPromise = videoElement.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        if (error.name !== "AbortError" && error.name !== "NotAllowedError") {
+          console.error("Video oynatma sırasında beklenmedik hata:", error);
+        }
+      });
+    }
+  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (videoRef.current && videoRef.current.readyState > 2) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          if (error.name !== "AbortError") {
-            console.error("Video oynatma sırasında beklenmedik hata:", error);
-          }
-        });
-      }
+      playVideo(videoRef.current);
     }
   };
 
@@ -45,15 +50,8 @@ const ProjectCard: FC<ProjectCardProps> = ({
   };
 
   const handleCanPlay = () => {
-    if (isHovered && videoRef.current) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          if (error.name !== "AbortError") {
-            console.error("Video oynatma sırasında beklenmedik hata:", error);
-          }
-        });
-      }
+    if (isHovered) {
+      playVideo(videoRef.current);
     }
   };
 
