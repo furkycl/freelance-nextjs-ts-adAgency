@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { singleProjectQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
-import { Project } from "@/types";
+import { Project } from "../../../../types/index";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
