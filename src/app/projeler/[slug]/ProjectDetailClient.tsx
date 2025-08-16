@@ -2,23 +2,15 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Lightbox, { Slide } from "yet-another-react-lightbox";
+import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { FadeIn } from "../../../../components/FadeIn";
-import { Project } from "../../../../types";
+import { Project } from "../../../../types/index";
 
-interface ProjectDetailClientProps {
-  project: Project;
-}
-
-export default function ProjectDetailClient({
-  project,
-}: ProjectDetailClientProps) {
+export default function ProjectDetailClient({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-
-  // Slides typed as Slide[] for Lightbox
-  const slides: Slide[] = project.gallery.map((imgUrl) => ({ src: imgUrl }));
+  const slides = project.gallery.map((imgUrl: string) => ({ src: imgUrl }));
 
   return (
     <>
@@ -54,7 +46,7 @@ export default function ProjectDetailClient({
             <div>
               <h3 className="text-2xl font-bold mb-4">Galeri</h3>
               <div className="grid grid-cols-2 gap-4">
-                {project.gallery.map((imgUrl, i) => (
+                {project.gallery.map((imgUrl: string, i: number) => (
                   <div
                     key={i}
                     className="relative aspect-square rounded-lg overflow-hidden cursor-pointer"
@@ -83,9 +75,10 @@ export default function ProjectDetailClient({
         slides={slides}
         index={index}
         on={{
-          view: ({ index: currentIndex }) => setIndex(currentIndex),
+          view: ({ index: currentIndex }: { index: number }) =>
+            setIndex(currentIndex),
         }}
-        styles={{ container: { backgroundColor: "rgba(0, 0, 0, 0.9)" } }}
+        styles={{ container: { backgroundColor: "rgba(0, 0, 0, .9)" } }}
       />
     </>
   );
