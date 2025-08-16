@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
+import { FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const Footer = () => {
   return (

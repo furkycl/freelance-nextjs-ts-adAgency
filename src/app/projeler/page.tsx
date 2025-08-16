@@ -1,11 +1,11 @@
-"use client";
-
+import { client } from "@/sanity/lib/client";
+import { projectsQuery } from "@/sanity/lib/queries";
 import ProjectCard from "../../../components/ProjectCard";
-import { projectsData } from "../../../data/projects";
 import { FadeIn } from "../../../components/FadeIn";
 import { Project } from "../../../types/index";
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects: Project[] = await client.fetch(projectsQuery);
   return (
     <div className="bg-white text-slate-900">
       <div className="container mx-auto px-6 pt-40 pb-24 text-center">
@@ -21,7 +21,7 @@ export default function ProjectsPage() {
 
       <div className="container mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => (
+          {projects.map((project, index) => (
             <FadeIn key={project.slug} delay={index * 0.1}>
               <ProjectCard
                 slug={project.slug}

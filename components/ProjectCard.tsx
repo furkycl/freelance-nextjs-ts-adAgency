@@ -84,13 +84,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <video
             ref={videoRef}
             src={videoUrl}
-            loop
-            muted
-            playsInline
-            onCanPlay={handleCanPlay}
-            className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300"
-            style={{ opacity: isHovered ? 1 : 0 }}
-            preload="metadata"
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 ${isHovered ? "media-visible" : "media-hidden"}`}
           />
         </motion.div>
 
