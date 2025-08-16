@@ -1,31 +1,33 @@
 import { client } from "@/sanity/lib/client";
-import { singleProjectQuery } from "../../../sanity/lib/queries";
+import { singleProjectQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
-import { Project } from "../../../../types/index";
+import { Project } from "../../../../types";
 import { Metadata } from "next";
 
-interface ProjectDetailPageProps {
+type Props = {
   params: {
     slug: string;
   };
+};
+
+async function getProjectData(slug: string): Promise<Project> {
+  const project = await client.fetch(singleProjectQuery, { slug });
+  return project;
 }
 
-export async function generateMetadata({
-  params,
-}: ProjectDetailPageProps): Promise<Metadata> {
-  const { slug } = params;
-  const project: Project = await client.fetch(singleProjectQuery, { slug });
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = await getProjectData(params.slug);
 
   if (!project) {
     return {};
   }
 
   return {
-    title: `${project.title} | Akgüler Reklam`,
+    title: `${project.title} | Şirket Adı`,
     description: project.description.substring(0, 155),
     openGraph: {
-      title: `${project.title} | Akgüler Reklam`,
+      title: `${project.title} | Şirket Adı`,
       description: project.description.substring(0, 155),
       images: [
         {
@@ -39,11 +41,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectDetailPage({
-  params,
-}: ProjectDetailPageProps) {
-  const { slug } = params;
-  const project: Project = await client.fetch(singleProjectQuery, { slug });
+export default async function ProjectDetailPage({ params }: Props) {
+  const project = await getProjectData(params.slug);
 
   if (!project) {
     notFound();
