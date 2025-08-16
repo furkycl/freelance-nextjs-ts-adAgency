@@ -2,15 +2,23 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Lightbox from "yet-another-react-lightbox";
+import Lightbox, { Slide } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { FadeIn } from "../../../../components/FadeIn";
-import { Project } from "../../../../types/";
+import { Project } from "../../../../types";
 
-export default function ProjectDetailClient({ project }: { project: Project }) {
+interface ProjectDetailClientProps {
+  project: Project;
+}
+
+export default function ProjectDetailClient({
+  project,
+}: ProjectDetailClientProps) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const slides = project.gallery.map((imgUrl: string) => ({ src: imgUrl }));
+
+  // Slides typed as Slide[] for Lightbox
+  const slides: Slide[] = project.gallery.map((imgUrl) => ({ src: imgUrl }));
 
   return (
     <>
@@ -19,6 +27,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           <p className="text-lg text-slate-500 mb-2">{project.category}</p>
           <h1 className="text-5xl font-bold">{project.title}</h1>
         </div>
+
         <div className="container mx-auto px-6 mb-12">
           <div className="relative w-full h-[60vh] rounded-lg overflow-hidden">
             <Image
@@ -30,6 +39,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             />
           </div>
         </div>
+
         <div className="container mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-12 overflow-hidden">
           <FadeIn direction="up" className="md:col-span-2">
             <div>
@@ -44,7 +54,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <div>
               <h3 className="text-2xl font-bold mb-4">Galeri</h3>
               <div className="grid grid-cols-2 gap-4">
-                {project.gallery.map((imgUrl: string, i: number) => (
+                {project.gallery.map((imgUrl, i) => (
                   <div
                     key={i}
                     className="relative aspect-square rounded-lg overflow-hidden cursor-pointer"
@@ -66,16 +76,16 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           </FadeIn>
         </div>
       </div>
+
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         slides={slides}
         index={index}
         on={{
-          view: ({ index: currentIndex }: { index: number }) =>
-            setIndex(currentIndex),
+          view: ({ index: currentIndex }) => setIndex(currentIndex),
         }}
-        styles={{ container: { backgroundColor: "rgba(0, 0, 0, .9)" } }}
+        styles={{ container: { backgroundColor: "rgba(0, 0, 0, 0.9)" } }}
       />
     </>
   );
