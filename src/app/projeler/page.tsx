@@ -3,6 +3,7 @@
 import ProjectCard from "../../../components/ProjectCard";
 import { projectsData } from "../../../data/projects";
 import { FadeIn } from "../../../components/FadeIn";
+import { Project } from "../../../types/index";
 
 export default function ProjectsPage() {
   return (

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { FadeIn } from "../../../../components/FadeIn";
-import { Project } from "../../../../data/projects";
+import { Project } from "../../../../types/";
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
@@ -71,7 +71,10 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         close={() => setOpen(false)}
         slides={slides}
         index={index}
-        on={{ view: ({ index: currentIndex }) => setIndex(currentIndex) }}
+        on={{
+          view: ({ index: currentIndex }: { index: number }) =>
+            setIndex(currentIndex),
+        }}
         styles={{ container: { backgroundColor: "rgba(0, 0, 0, .9)" } }}
       />
     </>
