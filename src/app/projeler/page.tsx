@@ -1,8 +1,8 @@
-import { client } from "@/sanity/lib/client";
-import { projectsQuery } from "@/sanity/lib/queries";
+import { client } from "@/src/sanity/lib/client";
+import { projectsQuery } from "@/src/sanity/lib/queries";
 import ProjectCard from "../../../components/ProjectCard";
 import { FadeIn } from "../../../components/FadeIn";
-import { Project } from "../../../types/index";
+import { Project } from "@/types";
 
 export default async function ProjectsPage() {
   const projects: Project[] = await client.fetch(projectsQuery);

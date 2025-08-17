@@ -1,5 +1,5 @@
-import { client } from "@/sanity/lib/client";
-import { projectsQuery } from "@/sanity/lib/queries";
+import { client } from "@/src/sanity/lib/client";
+import { projectsQuery } from "@/src/sanity/lib/queries";
 import HomePageClient from "../app/components/HomePageClient";
 
 interface Project {

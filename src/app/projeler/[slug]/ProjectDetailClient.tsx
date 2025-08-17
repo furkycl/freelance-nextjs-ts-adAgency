@@ -5,7 +5,7 @@ import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { FadeIn } from "../../../../components/FadeIn";
-import { Project } from "../../../../types/index";
+import { Project } from "@/types";
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);

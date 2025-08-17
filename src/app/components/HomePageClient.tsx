@@ -1,5 +1,5 @@
 "use client";
-import { Project } from "../../../types/index";
+import { Project } from "@/types";
 import Button from "../../../components/Button";
 import ProjectCard from "../../../components/ProjectCard";
 import Image from "next/image";
