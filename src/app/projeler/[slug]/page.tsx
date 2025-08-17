@@ -4,13 +4,6 @@ import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
 import { Project } from "@/types";
 
-export async function generateStaticParams() {
-  const slugs: string[] = await client.fetch(
-    `*[_type == "project" && defined(slug.current)][].slug.current`
-  );
-  return slugs.map((slug) => ({ slug }));
-}
-
 export default async function ProjectDetailPage({
   params,
 }: {
