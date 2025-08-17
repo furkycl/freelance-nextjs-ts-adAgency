@@ -14,15 +14,17 @@ export async function generateStaticParams() {
 export default async function ProjectDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
 
   const project: Project = await client.fetch(singleProjectQuery, {
     slug: slug,
   });
+
   if (!project) {
     notFound();
   }
+
   return <ProjectDetailClient project={project} />;
 }
